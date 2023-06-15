@@ -7,7 +7,7 @@ import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class OnChatMessage implements Listener {
+public class ChatMessageEvent implements Listener {
 
     @EventHandler
     public void OnChatMessage(AsyncChatEvent event){
