@@ -1,0 +1,4 @@
+name: ColorfulChat
+version: '1.0'
+main: me.michal737.colorfulchat.ColorfulChat
+api-version: "1.20"
