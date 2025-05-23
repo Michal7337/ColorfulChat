@@ -10,6 +10,7 @@ public final class ColorfulChat extends JavaPlugin {
     public void onEnable() {
 
         getServer().getPluginManager().addPermission(new Permission("colorfulchat.chat", "Allows players to send colorful chat messages.", PermissionDefault.TRUE));
+        getServer().getPluginManager().addPermission(new Permission("colorfulchat.anvil", "Allows players to rename items with colors.", PermissionDefault.TRUE));
 
         getServer().getPluginManager().registerEvents(new Events(), this);
 

@@ -7,10 +7,13 @@ import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class Events implements Listener {
+
+    public MiniMessage miniMessage = MiniMessage.miniMessage();
 
     @EventHandler
     public void onChatMessage(@NotNull AsyncChatEvent event){
@@ -21,11 +24,28 @@ public class Events implements Listener {
         String rawOriginalMessage = PlainTextComponentSerializer.plainText().serialize(originalMessage);
 
         ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
-        Component itemComponent = item.isEmpty() ? Component.text("Empty") : item.displayName().hoverEvent(item);
+        Component itemComponent = item.isEmpty() ? Component.text("[Empty]") : item.displayName().hoverEvent(item);
 
-        Component finalMessage = MiniMessage.miniMessage().deserialize(rawOriginalMessage, Placeholder.component("item", itemComponent));
+        Component finalMessage = miniMessage.deserialize(rawOriginalMessage, Placeholder.component("item", itemComponent));
 
         event.message(finalMessage);
+
+    }
+
+    @SuppressWarnings("UnstableApiUsage")
+    @EventHandler
+    public void onAnvilRename(@NotNull PrepareAnvilEvent event) {
+
+        if (!event.getView().getPlayer().hasPermission("colorfulchat.anvil")) return;
+
+        ItemStack result = event.getResult();
+
+        if (result != null) {
+
+            Component name = miniMessage.deserialize(PlainTextComponentSerializer.plainText().serialize(result.effectiveName()));
+            result.editMeta(meta -> meta.customName(name));
+
+        }
 
     }
 
