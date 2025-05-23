@@ -1,5 +1,0 @@
-name: ColorfulChat
-version: '1.1'
-main: me.michal737.colorfulchat.ColorfulChat
-description: A plugin that adds colorful chat messages
-api-version: "1.21"
