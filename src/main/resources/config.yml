@@ -1,0 +1,8 @@
+# Enables sending colorful chat messages
+enable-chat: true
+
+# Enables sending players' held items in chat using <item>
+enable-chat-items: true
+
+# Enables colorful item renaming in anvils
+enable-anvils: true

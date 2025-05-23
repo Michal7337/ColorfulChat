@@ -18,6 +18,7 @@ public class Events implements Listener {
     @EventHandler
     public void onChatMessage(@NotNull AsyncChatEvent event){
 
+        if (!ColorfulChat.enableChat) return;
         if (!event.getPlayer().hasPermission("colorfulchat.chat")) return;
 
         Component originalMessage = event.message();
@@ -26,7 +27,7 @@ public class Events implements Listener {
         ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
         Component itemComponent = item.isEmpty() ? Component.text("[Empty]") : item.displayName().hoverEvent(item);
 
-        Component finalMessage = miniMessage.deserialize(rawOriginalMessage, Placeholder.component("item", itemComponent));
+        Component finalMessage = ColorfulChat.enableChatItems ? miniMessage.deserialize(rawOriginalMessage, Placeholder.component("item", itemComponent)) : miniMessage.deserialize(rawOriginalMessage);
 
         event.message(finalMessage);
 
@@ -36,6 +37,7 @@ public class Events implements Listener {
     @EventHandler
     public void onAnvilRename(@NotNull PrepareAnvilEvent event) {
 
+        if (!ColorfulChat.enableAnvils) return;
         if (!event.getView().getPlayer().hasPermission("colorfulchat.anvil")) return;
 
         ItemStack result = event.getResult();
